@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:16.1
+    container_name: bankcards-postgres
+    environment:
+      POSTGRES_DB: bankcards
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password1
+    ports:
+      - "5432:5432"
+    volumes:
+      - stats-data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bankcards-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bankcards
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password1
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      SPRING_LIQUIBASE_ENABLED: true
+    ports:
+      - "8080:8080"
+
+volumes:
+  stats-data:

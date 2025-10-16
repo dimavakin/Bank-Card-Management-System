@@ -1,0 +1,149 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-users-table
+      author: dima
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: first_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+  - changeSet:
+      id: 2-create-user-roles-table
+      author: dima
+      changes:
+        - createTable:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+            constraints:
+              - primaryKey:
+                  columnNames: user_id,role
+              - foreignKey:
+                  columnNames: user_id
+                  referencedTableName: users
+                  referencedColumnNames: id
+                  onDelete: CASCADE
+
+  - changeSet:
+      id: 3-create-cards-table
+      author: dima
+      changes:
+        - createTable:
+            tableName: cards
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: card_number
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: expiry_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: balance
+                  type: numeric(15,2)
+                  defaultValue: 0.00
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+            constraints:
+              - foreignKey:
+                  columnNames: user_id
+                  referencedTableName: users
+                  referencedColumnNames: id
+                  onDelete: CASCADE
+              - check:
+                  constraintName: status_check
+                  validated: true
+                  clause: status IN ('ACTIVE', 'BLOCKED', 'EXPIRED')
+
+  - changeSet:
+      id: 4-create-block-card-requests-table
+      author: dima
+      changes:
+        - createTable:
+            tableName: block_card_requests
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: card_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+            constraints:
+              - foreignKey:
+                  columnNames: card_id
+                  referencedTableName: cards
+                  referencedColumnNames: id
+                  onDelete: CASCADE
