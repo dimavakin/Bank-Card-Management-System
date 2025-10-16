@@ -1,7 +1,9 @@
 package com.example.bankcards.util;
 
+import com.example.bankcards.config.EncryptionProperties;
 import com.example.bankcards.exception.EncryptionException;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
@@ -11,12 +13,12 @@ import org.springframework.stereotype.Component;
 public class EncryptionUtil {
     private static TextEncryptor textEncryptor;
 
-    @Value("${encryption.secret.key:myDefaultEncryptionKey123}")
-    private String secretKey;
+    @Autowired
+    private EncryptionProperties encryptionProperties;
 
     @PostConstruct
     public void init() {
-        textEncryptor = Encryptors.text(secretKey, "deadbeef");
+        textEncryptor = Encryptors.text(encryptionProperties.getKey(), "deadbeef");
     }
 
     public static String encrypt(String data) {

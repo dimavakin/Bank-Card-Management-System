@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_DB: bankcards
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password1
+      POSTGRES_PASSWORD: password
     ports:
       - "5432:5432"
     volumes:

@@ -25,7 +25,9 @@ jwt:
     expiration: 60
     refresh:
       expiration: 7
-
+encryption:
+  secret:
+    key: mySuperSecretKey123
 springdoc:
   swagger-ui:
     path: /swagger-ui.html

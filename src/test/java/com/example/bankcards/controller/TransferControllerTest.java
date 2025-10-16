@@ -24,9 +24,6 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -42,20 +39,18 @@ class TransferControllerTest {
     @Mock
     private Authentication authentication;
 
-    private User user;
-    private CustomUserDetails userDetails;
     private TransferRequest request;
     private TransferResponse response;
 
     @BeforeEach
     void setUp() {
-        user = new User();
+        User user = new User();
         user.setFirstName("Test");
         user.setLastName("Test");
         user.setRoles(Set.of(Role.ROLE_USER));
         user.setEmail("email@test.test");
 
-        userDetails = new CustomUserDetails(user);
+        CustomUserDetails userDetails = new CustomUserDetails(user);
 
         request = new TransferRequest();
         request.setSourceCardId(1L);

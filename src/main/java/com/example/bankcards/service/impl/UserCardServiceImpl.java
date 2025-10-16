@@ -4,7 +4,6 @@ import com.example.bankcards.dto.CardDto;
 import com.example.bankcards.entity.BlockCardRequest;
 import com.example.bankcards.entity.Card;
 import com.example.bankcards.entity.CardStatus;
-import com.example.bankcards.entity.User;
 import com.example.bankcards.exception.NotFoundException;
 import com.example.bankcards.exception.ValidationException;
 import com.example.bankcards.mapper.CardMapper;

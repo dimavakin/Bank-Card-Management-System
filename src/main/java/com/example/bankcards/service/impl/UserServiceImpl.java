@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JwtAuthenticationDto refreshToken(RefreshTokenDto refreshTokenDto) throws Exception {
+    public JwtAuthenticationDto refreshToken(RefreshTokenDto refreshTokenDto){
         String refreshToken = refreshTokenDto.getRefreshToken();
         if (refreshToken != null && jwtService.validateJwtToken(refreshToken)) {
             String email = jwtService.getEmailFromToken(refreshToken);

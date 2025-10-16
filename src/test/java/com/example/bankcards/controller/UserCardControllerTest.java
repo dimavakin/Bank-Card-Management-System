@@ -48,20 +48,18 @@ class UserCardControllerTest {
     @Mock
     private Authentication authentication;
 
-    private User user;
-    private CustomUserDetails userDetails;
     private CardDto cardDto;
     private Page<CardDto> cardPage;
 
     @BeforeEach
     void setUp() {
-        user = new User();
+        User user = new User();
         user.setFirstName("Test");
         user.setLastName("Test");
         user.setRoles(Set.of(Role.ROLE_USER));
         user.setEmail("email@test.test");
 
-        userDetails = new CustomUserDetails(user);
+        CustomUserDetails userDetails = new CustomUserDetails(user);
 
         cardDto = new CardDto(
                 1L,
