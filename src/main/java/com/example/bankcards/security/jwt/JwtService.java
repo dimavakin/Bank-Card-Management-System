@@ -90,7 +90,7 @@ public class JwtService {
     }
 
     private String generateRefreshToken(String email) {
-        Date date = Date.from(LocalDateTime.now().plusDays(jwtProperties.getRefreshExpiration()).atZone(ZoneId.systemDefault()).toInstant());
+        Date date = Date.from(LocalDateTime.now().plusDays(jwtProperties.getRefresh().getExpiration()).atZone(ZoneId.systemDefault()).toInstant());
         return Jwts.builder()
                 .subject(email)
                 .expiration(date)
@@ -99,7 +99,7 @@ public class JwtService {
     }
 
     private String generateJwtToken(String email, Collection<? extends GrantedAuthority> authorities) {
-        Date date = Date.from(LocalDateTime.now().plusMinutes(jwtProperties.getAccessExpiration()).atZone(ZoneId.systemDefault()).toInstant());
+        Date date = Date.from(LocalDateTime.now().plusMinutes(jwtProperties.getAccess().getExpiration()).atZone(ZoneId.systemDefault()).toInstant());
         return Jwts.builder()
                 .subject(email)
                 .claim("roles", authorities.stream()

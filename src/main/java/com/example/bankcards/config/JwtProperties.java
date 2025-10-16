@@ -11,6 +11,16 @@ import org.springframework.stereotype.Component;
 @Setter
 public class JwtProperties {
     private String secret;
-    private long accessExpiration;
-    private long refreshExpiration;
+    private Access access = new Access();
+    private Refresh refresh = new Refresh();
+
+    @Getter @Setter
+    public static class Access {
+        private long expiration;
+    }
+
+    @Getter @Setter
+    public static class Refresh {
+        private long expiration;
+    }
 }
