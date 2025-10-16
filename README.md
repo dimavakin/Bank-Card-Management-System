@@ -15,10 +15,10 @@ API предоставляет функционал для:
 - **Java 17+**
 - **Spring Boot / Spring Security / Spring Data JPA**
 - **JWT**
-- **PostgreSQL / MySQL**
+- **PostgreSQL**
 - **Liquibase**
 - **Docker Compose**
-- **Swagger / OpenAPI**
+- **Swagger**
 
 ---
 
